@@ -31,7 +31,7 @@
             </p>
 
             <div class="flex flex-wrap items-center gap-4">
-                <a href="#"
+                <a href="{{ route('tentang-kami') }}"
                     class="inline-flex items-center bg-[#00e5ff] hover:bg-[#00c4dc] text-[#0b1224] text-[15px] font-semibold px-6 py-3.5 rounded-full transition">
                     Lihat Layanan
                 </a>
