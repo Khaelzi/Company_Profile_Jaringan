@@ -47,7 +47,7 @@
                     </li>
 
                     <li>
-                        <a href="#"
+                        <a href="{{ route('tentang-kami') }}"
                             class="block py-2 px-3 lg:p-0 {{ request()->routeIs('tentang-kami') ? 'text-[#00e5ff] font-semibold' : 'text-slate-300 hover:text-[#00e5ff]' }}">
                             Tentang Kami
                         </a>
