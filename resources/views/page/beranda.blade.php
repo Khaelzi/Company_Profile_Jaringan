@@ -9,7 +9,13 @@
         {{-- Video background (di belakang, looping) --}}
         <video autoplay muted loop playsinline preload="auto"
             class="absolute inset-0 h-full w-full object-cover">
-            <source src="{{ asset('assets/video/vid.mp4') }}" type="video/mp4">
+            <source src="{{ asset('assets/video/beranda.mp4') }}" type="video/mp4">
+        </video>
+
+        {{-- TAMBAHAN: video khusus suara (tersembunyi, diputar lewat tombol) --}}
+        <video id="suara-video" loop preload="auto"
+            class="absolute w-0 h-0 opacity-0 pointer-events-none">
+            <source src="{{ asset('assets/video/codelyoko.mp4') }}" type="video/mp4">
         </video>
 
         {{-- Lapisan gelap supaya teks tetap terbaca --}}
@@ -20,6 +26,10 @@
             style="background-image: linear-gradient(rgba(0,229,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.05) 1px, transparent 1px); background-size: 40px 40px;"></div>
         <div class="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-[#00e5ff]/15 blur-3xl pointer-events-none"></div>
         <div class="absolute -top-24 right-0 w-96 h-96 rounded-full bg-[#ff2e93]/10 blur-3xl pointer-events-none"></div>
+
+        {{-- TAMBAHAN: penutup watermark video (pojok kanan bawah) --}}
+        <div class="absolute bottom-0 right-0 z-10 w-80 h-60 pointer-events-none backdrop-blur-md bg-gradient-to-tl from-[#0b1224] via-[#0b1224]/80 to-transparent"
+            style="-webkit-mask-image: radial-gradient(ellipse at bottom right, #000 45%, transparent 75%); mask-image: radial-gradient(ellipse at bottom right, #000 45%, transparent 75%);"></div>
 
         {{-- Konten (di depan video) --}}
         <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10 py-20 md:py-32">
@@ -52,6 +62,67 @@
                 </a>
             </div>
         </div>
+
+        {{-- TAMBAHAN: tombol suara (di kanan bawah, menutupi watermark) --}}
+                <button id="tombol-suara" type="button" aria-label="Nyalakan atau matikan suara"
+            class="absolute bottom-6 right-6 z-20 inline-flex items-center gap-2 cursor-pointer bg-[#0b1224]/70 backdrop-blur border border-[#00e5ff]/50 text-[#00e5ff] text-sm font-semibold px-4 py-3 rounded-full hover:bg-[#00e5ff] hover:text-[#0b1224] hover:shadow-[0_0_25px_rgba(0,229,255,0.5)] transition">
+
+            {{-- Ikon suara mati --}}
+            <svg id="ikon-mati" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5 6 9H3v6h3l5 4V5Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="m17 9 4 6m0-6-4 6" />
+            </svg>
+
+            {{-- Ikon suara menyala --}}
+            <svg id="ikon-nyala" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5 6 9H3v6h3l5 4V5Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" />
+            </svg>
+
+            <span id="teks-suara">Nyalakan Suara</span>
+        </button>
+
+        {{-- TAMBAHAN: script tombol suara --}}
+        <script>
+            (function () {
+                var suara = document.getElementById('suara-video');
+                var tombol = document.getElementById('tombol-suara');
+                var ikonMati = document.getElementById('ikon-mati');
+                var ikonNyala = document.getElementById('ikon-nyala');
+                var teks = document.getElementById('teks-suara');
+
+                suara.volume = 0.6; // 0.0 (hening) sampai 1.0 (penuh)
+
+                function tampil(menyala) {
+                    ikonMati.classList.toggle('hidden', menyala);
+                    ikonNyala.classList.toggle('hidden', !menyala);
+                    teks.textContent = menyala ? 'Matikan Suara' : 'Nyalakan Suara';
+                }
+
+                tombol.addEventListener('click', function () {
+                    if (suara.paused) {
+                        var p = suara.play();
+                        if (p !== undefined) {
+                            p.then(function () { tampil(true); })
+                             .catch(function () { tampil(false); });
+                        } else {
+                            tampil(true);
+                        }
+                    } else {
+                        suara.pause();
+                        tampil(false);
+                    }
+                });
+
+                // Hentikan suara kalau tab ditinggalkan
+                document.addEventListener('visibilitychange', function () {
+                    if (document.hidden && !suara.paused) {
+                        suara.pause();
+                        tampil(false);
+                    }
+                });
+            })();
+        </script>
     </section>
 
 

@@ -24,6 +24,8 @@
                         <li><a href="#" class="hover:text-[#00e5ff]">Tentang Kami</a></li>
                         <li><a href="#" class="hover:text-[#00e5ff]">Layanan</a></li>
                         <li><a href="#" class="hover:text-[#00e5ff]">Berita</a></li>
+                        {{-- TAMBAHAN: link Proyek --}}
+                        <li><a href="{{ route('proyek') }}" class="hover:text-[#00e5ff]">Proyek</a></li>
                         <li><a href="https://wa.me/6281234567890" target="_blank"
                                 class="hover:text-[#00e5ff]">Hubungi Kami</a></li>
                     </ul>
