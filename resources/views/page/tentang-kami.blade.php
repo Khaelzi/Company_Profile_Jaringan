@@ -4,9 +4,23 @@
 @section('content')
 
     {{-- HEADER (pola grid + glow neon) --}}
+       {{-- HEADER (video transparan + pola grid + glow neon) --}}
     <section class="relative overflow-hidden bg-gradient-to-br from-[#0b1224] via-[#101a33] to-[#1b2750] py-16 md:py-24">
+
+        {{-- Video background (looping, transparan) --}}
+        <video autoplay muted loop playsinline preload="auto"
+            class="absolute inset-0 h-full w-full object-cover opacity-40">
+            <source src="{{ asset('assets/video/tentangkami.mp4') }}" type="video/mp4">
+        </video>
+
+        {{-- Lapisan gelap tipis supaya teks tetap terbaca --}}
+        <div class="absolute inset-0 bg-gradient-to-b from-[#0b1224]/60 via-[#0b1224]/40 to-[#0b1224]/70"></div>
+
+        {{-- Pola grid (di atas video, supaya kotak-kotak tetap terlihat) --}}
         <div class="absolute inset-0 pointer-events-none"
-            style="background-image: linear-gradient(rgba(0,229,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.06) 1px, transparent 1px); background-size: 40px 40px;"></div>
+            style="background-image: linear-gradient(rgba(0,229,255,0.10) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.10) 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+        {{-- Glow neon --}}
         <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-[#ff2e93]/10 blur-3xl pointer-events-none"></div>
         <div class="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-[#00e5ff]/10 blur-3xl pointer-events-none"></div>
 

@@ -67,6 +67,14 @@
                         </a>
                     </li>
 
+                    {{-- TAMBAHAN: menu Proyek --}}
+                    <li>
+                        <a href="{{ route('proyek') }}"
+                            class="block py-2 px-3 lg:p-0 {{ request()->routeIs('proyek') ? 'text-[#00e5ff] font-semibold' : 'text-slate-300 hover:text-[#00e5ff]' }}">
+                            Proyek
+                        </a>
+                    </li>
+
                 </ul>
             </div>
         </div>
