@@ -61,7 +61,7 @@
                     </li>
 
                     <li>
-                        <a href="#"
+                        <a href="{{ route('berita') }}"
                             class="block py-2 px-3 lg:p-0 {{ request()->routeIs('berita') ? 'text-[#00e5ff] font-semibold' : 'text-slate-300 hover:text-[#00e5ff]' }}">
                             Berita
                         </a>
